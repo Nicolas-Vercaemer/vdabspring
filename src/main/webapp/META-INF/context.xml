@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Context path='/vdabspring'>
+<Resource name='jdbc/vdabspring'
+type='javax.sql.DataSource' driverClassName='com.mysql.jdbc.Driver'
+url='jdbc:mysql://localhost/vdabspring'
+username='root' password='vdab'
+factory='org.apache.tomcat.jdbc.pool.DataSourceFactory'
+validationInterval='60000' validationQuery='select 1' testOnBorrow='true' />
+</Context>
