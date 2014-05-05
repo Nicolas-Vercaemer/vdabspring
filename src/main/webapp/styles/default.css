@@ -137,3 +137,9 @@ blockquote {
 	margin-left: 0;
 	font-style: italic;
 }
+.verwijderen{
+	background:url("/vdabspring/images/icons/cross.png");
+	height:20px;
+	width:20px;
+	font-size:0;
+}

@@ -15,16 +15,22 @@ import be.vdab.entities.Cursist;
 
 // enkele imports ...
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CreateTestDataSourceBean.class, CreateDAOBeans.class, }) // DataSource bean en DAO beans laden in IOC container
-@Transactional // omringt elke test met een transactie, na de test rollback
+@ContextConfiguration(classes = { CreateTestDataSourceBean.class,
+		CreateDAOBeans.class, })
+// DataSource bean en DAO beans laden in IOC container
+@Transactional
+// omringt elke test met een transactie, na de test rollback
 public class CursistDAOImplTest {
-@Autowired
-private CursistDAO cursistDAO;
-@Test
-public void create() {
-Cursist cursist =new Cursist("TestVoornaam", "TestAchternaam",  new Date(),
-new Date(), new Date(), "testemail@email.com");
-cursistDAO.save(cursist);
-Assert.assertNotEquals(0, cursist.getId()); // id moet autonumber hebben:
-}
+	@Autowired
+	private CursistDAO cursistDAO;
+
+	@Test
+	public void create() {
+		Cursist cursist = new Cursist("TestVoornaam", "TestAchternaam",
+				new Date(), new Date(), new Date(), "testemail@email.com");
+		cursistDAO.save(cursist);
+		Assert.assertNotEquals(0, cursist.getId()); // id moet autonumber
+													// hebben:
+	}
+
 }

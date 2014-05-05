@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import be.vdab.entities.Cursist;
+import be.vdab.entities.Onderwerp;
 
 @EnableJpaRepositories(basePackageClasses={CreateDAOBeans.class}) 
 @Configuration
@@ -27,6 +28,7 @@ public class CreateDAOBeans {
 	entityManagerFactoryBean.setDataSource(dataSource); 
 	entityManagerFactoryBean.setPackagesToScan( 
 	Cursist.class.getPackage().getName());
+	Onderwerp.class.getPackage().getName();
 	HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter(); 
 	adapter.setShowSql(true); 
 	entityManagerFactoryBean.setJpaVendorAdapter(adapter); 

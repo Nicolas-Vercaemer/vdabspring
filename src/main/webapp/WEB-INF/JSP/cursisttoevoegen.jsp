@@ -16,7 +16,7 @@
 <form:label path='voornaam'>Voornaam:<br>
 <form:errors path='voornaam' cssClass='fout'/></form:label>
 <form:input path='voornaam' autofocus='autofocus' required='true' 
-maxlength='55' minlength='1'/>
+maxlength='45' minlength='1'/>
 <br>
 <form:label path='familienaam'>Familienaam:<br>
 <form:errors path='familienaam' cssClass='fout'/></form:label>
@@ -39,7 +39,7 @@ maxlength='55' minlength='1'/>
 <form:errors path='email' cssClass='fout'/>
 <form:errors cssClass='fout'  element='div'/>
 </form:label>
-<form:input path='email' required='true' maxlength="55" minlength="1"/>
+<form:input path='email' required='true' maxlength="45" minlength="1"/>
 <br>
 <input type='submit' value='Toevoegen' id='toevoegknop'>
 </form:form>
