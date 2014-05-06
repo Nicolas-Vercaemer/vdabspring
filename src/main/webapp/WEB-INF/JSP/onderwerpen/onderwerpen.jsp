@@ -11,7 +11,7 @@
 <body>
 <spring:url value='/onderwerpen/verwijderen' var='verwijderURL'/> 
 <c:choose>
-<c:when test="${empty onderwerpVoorBewerken }">
+<c:when test="${bewerken == false}">
 
 <table>
 <thead>
@@ -23,27 +23,27 @@
 </thead>
 <tbody>
 <form method="post" action="${verwijderURL}">
-<c:forEach items="${onderwerpen}" var="onderwerp">
+<c:forEach items="${onderwerpen}" var="onderwerpUitLijst">
 <tr>
-<td>${onderwerp.naam}</td>
+<td>${onderwerpUitLijst.naam}</td>
 <td>
-<c:if test="${onderwerp.afwezig == true}">
+<c:if test="${onderwerpUitLijst.afwezig == true}">
 Ja
 </c:if>
 </td>
 <td>
 <spring:url value='/onderwerpen/bewerken/{id}' var='bewerkenURL'> 
-<spring:param name="id" value="${onderwerp.id}"/>
+<spring:param name="id" value="${onderwerpUitLijst.id}"/>
 </spring:url>
 
-<input type="submit" value="${onderwerp.id}" name="id" class="verwijderen"/>
+<input type="submit" value="${onderwerpUitLijst.id}" name="id" class="verwijderen"/>
 <a href="${bewerkenURL}"><img alt="edit" src="${contextPath}/images/icons/pencil.png"></a></td>
 </tr>
 </c:forEach>
 </form>
-<c:if test="${not empty onderwerpVoorToevoegen}">
+<c:if test="${not empty onderwerp and bewerken==false}">
 <spring:url value="/onderwerpen/opslaan" var="opslaanURL"/>
-<form:form method="post" action ="${opslaanURL}" id="bewerkenform" commandName="onderwerpVoorToevoegen">
+<form:form method="post" action ="${opslaanURL}" id="bewerkenform" commandName="onderwerp">
 <jsp:include page='onderwerpform.jsp'/>
 </form:form>
 </c:if>
@@ -63,6 +63,7 @@ Ja
 
 </c:when>
 <c:otherwise>
+
 <table>
 <thead>
 <tr>
@@ -72,25 +73,26 @@ Ja
 </tr>
 </thead>
 <tbody>
-<c:forEach items="${onderwerpen}" var="onderwerp">
+<c:forEach items="${onderwerpen}" var="onderwerpUitLijst">
 <c:choose>
-<c:when test="${onderwerp.id == onderwerpVoorBewerken.id}">
+<c:when test="${onderwerpUitLijst.id == onderwerp.id}">
 <spring:url value="/onderwerpen/opslaan" var="opslaanURL"/>
-<form:form method="post" action ="${opslaanURL}" id="bewerkenform" commandName="onderwerpVoorBewerken">
+<form:form method="post" action ="${opslaanURL}" id="bewerkenform" commandName="onderwerp">
 <jsp:include page='onderwerpform.jsp'/>
+
 </form:form>
 </c:when>
 <c:otherwise>
 <tr>
-<td>${onderwerp.naam}</td>
+<td>${onderwerpUitLijst.naam}</td>
 <td>
-<c:if test="${onderwerp.afwezig == true}">
+<c:if test="${onderwerpUitLijst.afwezig == true}">
 Ja
 </c:if>
 </td>
 <td>
 <spring:url value='/onderwerpen/bewerken/{id}' var='bewerkenURL'> 
-<spring:param name="id" value="${onderwerp.id}"/>
+<spring:param name="id" value="${onderwerpUitLijst.id}"/>
 </spring:url>
 
 <input type="submit" value="${onderwerp.id}" name="id" class="verwijderen"/>

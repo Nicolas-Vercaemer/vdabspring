@@ -3,7 +3,7 @@
 
 <tr>
 <td>
-<form:label path='naam'>
+<form:label path='naam'> Naam:
 <form:errors path='naam' cssClass='fout'/></form:label>
 <form:input path='naam' autofocus='autofocus' required='true' 
 maxlength='45' minlength='1'/>
