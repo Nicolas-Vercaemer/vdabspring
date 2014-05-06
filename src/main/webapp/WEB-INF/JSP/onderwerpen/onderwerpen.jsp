@@ -11,7 +11,7 @@
 <body>
 <spring:url value='/onderwerpen/verwijderen' var='verwijderURL'/> 
 <c:choose>
-<c:when test="${bewerken == false}">
+<c:when test="${onderwerp.id==0 or empty onderwerp}">
 
 <table>
 <thead>
@@ -21,6 +21,7 @@
 <th></th>
 </tr>
 </thead>
+
 <tbody>
 <form method="post" action="${verwijderURL}">
 <c:forEach items="${onderwerpen}" var="onderwerpUitLijst">
@@ -41,7 +42,7 @@ Ja
 </tr>
 </c:forEach>
 </form>
-<c:if test="${not empty onderwerp and bewerken==false}">
+<c:if test="${not empty onderwerp and onderwerp.id==0}">
 <spring:url value="/onderwerpen/opslaan" var="opslaanURL"/>
 <form:form method="post" action ="${opslaanURL}" id="bewerkenform" commandName="onderwerp">
 <jsp:include page='onderwerpform.jsp'/>

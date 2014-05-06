@@ -7,37 +7,44 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import be.vdab.dao.OnderwerpDAO;
-import be.vdab.entities.Cursist;
 import be.vdab.entities.Onderwerp;
 
 @Service
-@Transactional(readOnly=false)
+@Transactional(readOnly = false)
 class OnderwerpServiceImpl implements OnderwerpService {
 	private final OnderwerpDAO onderwerpDAO;
+
 	@Autowired
-	OnderwerpServiceImpl(OnderwerpDAO onderwerpDAO){
-		this.onderwerpDAO=onderwerpDAO;
+	OnderwerpServiceImpl(OnderwerpDAO onderwerpDAO) {
+		this.onderwerpDAO = onderwerpDAO;
 	}
+
 	@Override
-	public void createOrUpdate(Onderwerp onderwerp){
-//		onderwerpDAO.save(onderwerp);
+	public void createOrUpdate(Onderwerp onderwerp) {
+		// onderwerpDAO.save(onderwerp);
 		onderwerp.setId(onderwerpDAO.save(onderwerp).getId());
 	}
+
 	@Override
 	public void delete(Onderwerp onderwerp) {
 		onderwerpDAO.delete(onderwerp);
 	}
+
 	@Override
 	public Iterable<Onderwerp> findAll() {
-	return onderwerpDAO.findAll(new Sort(Direction.ASC, "naam"));
+		return onderwerpDAO.findAll(new Sort(Direction.ASC, "naam"));
 	}
+
 	@Override
-	public Onderwerp read(long id){
+	public Onderwerp read(long id) {
 		return onderwerpDAO.findOne(id);
 	}
+
 	@Override
 	public boolean isNaamAlInGebruik(Onderwerp onderwerp) {
-	return	onderwerpDAO.findByNaam(onderwerp.getNaam()) != null;
+		// return onderwerpDAO.findByNaam(onderwerp.getNaam()) != null;
+		return onderwerpDAO.countByNaamAndIdNot(onderwerp.getNaam(),
+				onderwerp.getId()) != 0;
 	}
 
 }
