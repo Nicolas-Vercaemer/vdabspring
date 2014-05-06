@@ -7,5 +7,6 @@ public interface OnderwerpService {
 	void delete(Onderwerp onderwerp);
 	Iterable<Onderwerp> findAll();
 	Onderwerp read(long id);	
+	boolean isNaamAlInGebruik(Onderwerp onderwerp);
 
 }

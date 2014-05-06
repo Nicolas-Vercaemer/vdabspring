@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import be.vdab.dao.OnderwerpDAO;
+import be.vdab.entities.Cursist;
 import be.vdab.entities.Onderwerp;
 
 @Service
@@ -34,6 +35,9 @@ class OnderwerpServiceImpl implements OnderwerpService {
 	public Onderwerp read(long id){
 		return onderwerpDAO.findOne(id);
 	}
-
+	@Override
+	public boolean isNaamAlInGebruik(Onderwerp onderwerp) {
+	return	onderwerpDAO.findByNaam(onderwerp.getNaam()) != null;
+	}
 
 }

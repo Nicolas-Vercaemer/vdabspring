@@ -51,10 +51,12 @@ Ja
 <tfoot>
 <tr>
 <td colspan=3>
+<c:if test="${empty onderwerp}">
 <spring:url value='/onderwerpen/toevoegen' var='toevoegenURL'/> 
 <form action="${toevoegenURL}">
 <input type="submit" value="Nieuw Onderwerp toevoegen"/>
 </form>
+</c:if>
 </td>
 
 </tr>

@@ -50,7 +50,10 @@ public class OnderwerpController {
 
 		if (bindingResult.hasErrors()) {
 			if(onderwerp.getId()!=0){
+		
+
 				return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll()).addObject("bewerken", true);
+				
 			}
 			else{
 				return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll()).addObject("bewerken", false);
@@ -59,6 +62,21 @@ public class OnderwerpController {
 
 	
 		}
+		if(onderwerp.getId()!=0){
+			if(!onderwerp.getNaam().equalsIgnoreCase( onderwerpService.read(onderwerp.getId()).getNaam())){
+				if(onderwerpService.isNaamAlInGebruik(onderwerp)){
+					bindingResult.reject("naamIsNietUniek");
+					return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll()).addObject("bewerken", true);
+				}
+		}
+		}
+		else{
+			if(onderwerpService.isNaamAlInGebruik(onderwerp)){
+				bindingResult.reject("naamIsNietUniek");
+				return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll()).addObject("bewerken", false);
+			}
+		}
+
 	
 		onderwerpService.createOrUpdate(onderwerp);;
 		return new ModelAndView("redirect:/onderwerpen");
