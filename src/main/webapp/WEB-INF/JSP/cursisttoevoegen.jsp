@@ -2,14 +2,15 @@
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <%@taglib prefix='spring' uri='http://www.springframework.org/tags'%>
 <%@taglib prefix='form' uri='http://www.springframework.org/tags/form'%>
+<%@taglib prefix='v' uri='http://vdab.be/tags' %>
 <!doctype html>
 <html>
 <head>
-<title>Cursist toevoegen</title>
-<link rel='stylesheet' href='${contextPath}/styles/default.css'>
+<v:head title="Cursist toevoegen"/>
 
 </head>
 <body>
+<v:menu/>
 <h1>Cursist toevoegen</h1>
 <c:url value='/cursisten' var='url'/>
 <form:form action='${url}' commandName='cursist' id='toevoegform'>

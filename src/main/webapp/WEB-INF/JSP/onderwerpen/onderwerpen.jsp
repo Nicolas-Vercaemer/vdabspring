@@ -2,13 +2,15 @@
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <%@taglib prefix='spring' uri='http://www.springframework.org/tags'%>
 <%@taglib prefix='form' uri='http://www.springframework.org/tags/form'%>
+<%@taglib prefix='v' uri='http://vdab.be/tags' %>
 <!doctype html>
 <html>
 <head>
-<title>Onderwerpen</title>
-<link rel='stylesheet' href='${contextPath}/styles/default.css'>
+<v:head title="Onderwerpen"/>
 </head>
 <body>
+<v:menu/>
+<h1>Onderwerpen</h1>
 <spring:url value='/onderwerpen/verwijderen' var='verwijderURL'/> 
 <c:choose>
 <c:when test="${onderwerp.id==0 or empty onderwerp}">
