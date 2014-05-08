@@ -1,6 +1,8 @@
 package be.vdab.web;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +15,23 @@ import org.springframework.web.servlet.ModelAndView;
 class KalenderController {
 	private static final String VIEW = "kalender/kalender";
 	private int rij = 0;
+	private static final Map<Integer, Integer> eersteMaandDagKolom = new HashMap<>();
+
+	static {
+		eersteMaandDagKolom.put(Calendar.MONDAY, 0);
+		eersteMaandDagKolom.put(Calendar.TUESDAY, 1);
+		eersteMaandDagKolom.put(Calendar.WEDNESDAY, 2);
+		eersteMaandDagKolom.put(Calendar.THURSDAY, 3);
+		eersteMaandDagKolom.put(Calendar.FRIDAY, 4);
+		eersteMaandDagKolom.put(Calendar.SATURDAY, 5);
+		eersteMaandDagKolom.put(Calendar.SUNDAY, 6);
+	}
 
 	@RequestMapping(value = "{jaar:[1-2][0-9][0-9][0-9]}/{maand:0[1-9]||[1-9]||1[0-2]}", method = RequestMethod.GET)
 	ModelAndView kalender(@PathVariable("jaar") int jaar,
 			@PathVariable("maand") int maand) {
 
+		Calendar calendar = Calendar.getInstance();
 		int kalender[][] = createKalender(jaar, maand);
 		int maxRij = kalender[rij][0] == 0 ? rij - 1 : rij;
 		int vorigeMaand = maand - 1;
@@ -36,64 +50,24 @@ class KalenderController {
 
 		return new ModelAndView(VIEW, "kalender", kalender)
 				.addObject("maxRij", maxRij)
-				.addObject("maand", welkeMaand(maand))
+				.addObject("maandString", welkeMaand(maand))
+				.addObject("jaar", jaar).addObject("maand", maand)
 				.addObject("vorigeMaand", vorigeMaand)
 				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
 				.addObject("vorigJaar", vorigJaar)
 				.addObject("volgendeMaand", volgendeMaand)
 				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
-				.addObject("volgendJaar", volgendJaar);
+				.addObject("volgendJaar", volgendJaar)
+				.addObject("huidigeDag", calendar.get(Calendar.DAY_OF_MONTH))
+				.addObject("huidigeMaand", calendar.get(Calendar.MONTH) + 1)
+				.addObject("huidigJaar", calendar.get(Calendar.YEAR));
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView kalender() {
 		Calendar huidigetijd = Calendar.getInstance();
-		int kalender[][] = createKalender(huidigetijd.get(Calendar.YEAR),
+		return kalender(huidigetijd.get(Calendar.YEAR),
 				huidigetijd.get(Calendar.MONTH) + 1);
-		int maxRij = kalender[rij][0] == 0 ? rij - 1 : rij;
-		int vorigeMaand = huidigetijd.get(Calendar.MONTH);
-		int vorigJaar = huidigetijd.get(Calendar.YEAR);
-		int volgendeMaand = huidigetijd.get(Calendar.MONTH) + 2;
-		int volgendJaar = huidigetijd.get(Calendar.YEAR);
-
-		if (vorigeMaand == 0) {
-			vorigeMaand = 12;
-			vorigJaar--;
-		}
-		if (volgendeMaand == 13) {
-			volgendeMaand = 1;
-			volgendJaar++;
-		}
-		return new ModelAndView(VIEW, "kalender", kalender)
-				.addObject("maxRij", maxRij)
-				.addObject("maand",
-						welkeMaand(huidigetijd.get(Calendar.MONTH) + 1))
-				.addObject("vorigeMaand", vorigeMaand)
-				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
-				.addObject("vorigJaar", vorigJaar)
-				.addObject("volgendeMaand", volgendeMaand)
-				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
-				.addObject("volgendJaar", volgendJaar);
-	}
-
-	private int bepaalEersteDagVanMaandInEersteWeek(Calendar calendar) {
-
-		switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-		case Calendar.MONDAY:
-			return 0;
-		case Calendar.TUESDAY:
-			return 1;
-		case Calendar.WEDNESDAY:
-			return 2;
-		case Calendar.THURSDAY:
-			return 3;
-		case Calendar.FRIDAY:
-			return 4;
-		case Calendar.SATURDAY:
-			return 5;
-		default:
-			return 6;
-		}
 	}
 
 	private int[][] createKalender(int jaar, int maand) {
@@ -108,7 +82,7 @@ class KalenderController {
 		}
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		maand = calendar.get(Calendar.MONTH);
-		int kolom = bepaalEersteDagVanMaandInEersteWeek(calendar);
+		int kolom = eersteMaandDagKolom.get(calendar.get(Calendar.DAY_OF_WEEK));
 
 		do {
 			kalender[rij][kolom] = calendar.get(Calendar.DAY_OF_MONTH);
