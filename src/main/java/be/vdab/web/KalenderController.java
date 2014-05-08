@@ -53,12 +53,8 @@ class KalenderController {
 				.addObject("maxRij", maxRij)
 				.addObject("maandString", welkeMaand(maand))
 				.addObject("jaar", jaar).addObject("maand", maand)
-				.addObject("vorigeMaand", vorigeMaand)
 				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
-				.addObject("vorigJaar", vorigJaar)
-				.addObject("volgendeMaand", volgendeMaand)
 				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
-				.addObject("volgendJaar", volgendJaar)
 				.addObject("huidigeDag", calendar.get(Calendar.DAY_OF_MONTH))
 				.addObject("huidigeMaand", calendar.get(Calendar.MONTH) + 1)
 				.addObject("huidigJaar", calendar.get(Calendar.YEAR));

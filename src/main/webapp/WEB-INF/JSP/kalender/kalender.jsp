@@ -23,6 +23,29 @@ td {
 </head>
 <body>
 	<v:menu />
+	
+	<c:choose>
+	<c:when test="${maand == 1}">
+	<c:set var="vorigeMaand" value="12"/>
+	<c:set var ="vorigJaar" value="${jaar - 1}"/>
+	<c:set var="volgendeMaand" value="${maand + 1 }"/>
+	<c:set var ="volgendJaar" value="${jaar}"/>
+	</c:when>
+	<c:when test="${maand == 12}">
+	<c:set var="vorigeMaand" value="${maand - 1}"/>
+	<c:set var ="vorigJaar" value="${jaar}"/>
+	<c:set var="volgendeMaand" value="1"/>
+	<c:set var ="volgendJaar" value="${jaar + 1}"/>
+	</c:when>
+	<c:otherwise>
+	<c:set var="vorigeMaand" value="${maand - 1}"/>
+	<c:set var ="vorigJaar" value="${jaar}"/>
+	<c:set var="volgendeMaand" value="${maand + 1}"/>
+	<c:set var ="volgendJaar" value="${jaar}"/>
+	</c:otherwise>
+	</c:choose>
+	
+		
 	<spring:url var='urlVorigeMaand' value='/kalender/{jaar}/{maand}'>
 		<spring:param name="jaar" value="${vorigJaar}"></spring:param>
 		<spring:param name="maand" value="${vorigeMaand}"></spring:param>

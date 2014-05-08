@@ -22,10 +22,8 @@ public class DagController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(datum);
 		return new ModelAndView(VIEW, "dagVanDeWeek",
-				dagVanDeWeek(calendar.get(Calendar.DAY_OF_WEEK)))
-				.addObject("dagVanDeMaand", calendar.get(Calendar.DAY_OF_MONTH))
-				.addObject("maand", calendar.get(Calendar.MONTH) + 1)
-				.addObject("jaar", calendar.get(Calendar.YEAR));
+				dagVanDeWeek(calendar.get(Calendar.DAY_OF_WEEK))).addObject(
+				"datum", datum);
 	}
 
 	private String dagVanDeWeek(int dagInt) {
