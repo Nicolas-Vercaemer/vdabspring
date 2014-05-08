@@ -1,5 +1,6 @@
 package be.vdab.web;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,19 +29,7 @@ public class DagController {
 	}
 
 	private String dagVanDeWeek(int dagInt) {
-
-		switch (dagInt) {
-		case 2:
-			return "Maandag";
-		case 3:
-			return "Dinsdag";
-		case 4:
-			return "Woensdag";
-		case 5:
-			return "Donderdag";
-		default:
-			return "Vrijdag";
-		}
+		return new DateFormatSymbols().getWeekdays()[dagInt];
 	}
 
 }

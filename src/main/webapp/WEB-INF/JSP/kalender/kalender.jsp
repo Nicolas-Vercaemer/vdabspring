@@ -50,45 +50,32 @@ td {
 		<c:forEach var="rij" begin="0" end="${maxRij}">
 			<tr>
 				<c:forEach var="kolom" begin="0" end="4">
-				
-				</c:forEach>
-				<c:forEach var="kolom" begin="5" end="6">
-				</c:forEach>
-				
-			
-			
-			
-			
-			
-				<c:forEach var="kolom" begin="0" end="6">
 					<c:set var="dagInMaand" value="${kalender[rij][kolom]}" />
-					
+					<spring:url var='kalenderDag' value='/dagen/{jaar}-{maand}-{dag}'>
+						<spring:param name="jaar" value="${jaar}"></spring:param>
+						<spring:param name="maand" value="${maand}"></spring:param>
+						<spring:param name="dag" value="${dagInMaand}"></spring:param>
+					</spring:url>
 					<c:choose>
-						<c:when test="${kolom == 5 or kolom == 6}">
-							<c:choose>
-								<c:when test="${dagInMaand == huidigeDag && maand == huidigeMaand && jaar == huidigJaar}">
-									<td bgcolor="red">${dagInMaand==0 ? '' : dagInMaand}</td>
-								</c:when>
-								<c:otherwise>
-									<td>${dagInMaand==0 ? '' : dagInMaand}</td>
-								</c:otherwise>
-							</c:choose>
+						<c:when
+							test="${dagInMaand == huidigeDag && maand == huidigeMaand && jaar == huidigJaar}">
+							<td bgcolor="red"><a href="${kalenderDag}">${dagInMaand==0 ? '' : dagInMaand}</a></td>
 						</c:when>
 						<c:otherwise>
-							<spring:url var='kalenderDag' value='/dagen/{jaar}-{maand}-{dag}'>
-								<spring:param name="jaar" value="${jaar}"></spring:param>
-								<spring:param name="maand" value="${maand}"></spring:param>
-								<spring:param name="dag" value="${dagInMaand}"></spring:param>
-							</spring:url>
-							<c:choose>
-								<c:when
-									test="${dagInMaand == huidigeDag && maand == huidigeMaand && jaar == huidigJaar}">
-									<td bgcolor="red"><a href="${kalenderDag}">${dagInMaand==0 ? '' : dagInMaand}</a></td>
-								</c:when>
-								<c:otherwise>
-									<td><a href="${kalenderDag}">${dagInMaand==0 ? '' : dagInMaand}</a></td>
-								</c:otherwise>
-							</c:choose>
+							<td><a href="${kalenderDag}">${dagInMaand==0 ? '' : dagInMaand}</a></td>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+				<c:forEach var="kolom" begin="5" end="6">
+					<c:set var="dagInMaand" value="${kalender[rij][kolom]}" />
+					<c:choose>
+						<c:when
+							test="${dagInMaand == huidigeDag && maand == huidigeMaand && jaar == huidigJaar}">
+							<td bgcolor="red">${dagInMaand==0 ? '' : dagInMaand}</td>
+						</c:when>
+						<c:otherwise>
+							<td>${dagInMaand==0 ? '' : dagInMaand}</td>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>

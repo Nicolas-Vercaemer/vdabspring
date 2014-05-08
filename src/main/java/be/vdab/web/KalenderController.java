@@ -1,5 +1,6 @@
 package be.vdab.web;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,33 +99,7 @@ class KalenderController {
 	}
 
 	private String welkeMaand(int maand) {
-		switch (maand) {
-		case 1:
-			return "Januari";
-		case 2:
-			return "Februari";
-		case 3:
-			return "Maart";
-		case 4:
-			return "April";
-		case 5:
-			return "Mei";
-		case 6:
-			return "Juni";
-		case 7:
-			return "Juli";
-		case 8:
-			return "Augustus";
-		case 9:
-			return "September";
-		case 10:
-			return "Oktober";
-		case 11:
-			return "November";
-		default:
-			return "December";
-
-		}
+		return new DateFormatSymbols().getMonths()[maand - 1];
 	}
 
 }
