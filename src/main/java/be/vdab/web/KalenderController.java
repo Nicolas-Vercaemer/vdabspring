@@ -20,8 +20,29 @@ class KalenderController {
 
 		int kalender[][] = createKalender(jaar, maand);
 		int maxRij = kalender[rij][0] == 0 ? rij - 1 : rij;
-		return new ModelAndView(VIEW, "kalender", kalender).addObject("maxRij",
-				maxRij).addObject("maand", welkeMaand(maand));
+		int vorigeMaand = maand - 1;
+		int volgendeMaand = maand + 1;
+		int vorigJaar = jaar;
+		int volgendJaar = jaar;
+
+		if (vorigeMaand == 0) {
+			vorigeMaand = 12;
+			vorigJaar--;
+		}
+		if (volgendeMaand == 13) {
+			volgendeMaand = 1;
+			volgendJaar++;
+		}
+
+		return new ModelAndView(VIEW, "kalender", kalender)
+				.addObject("maxRij", maxRij)
+				.addObject("maand", welkeMaand(maand))
+				.addObject("vorigeMaand", vorigeMaand)
+				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
+				.addObject("vorigJaar", vorigJaar)
+				.addObject("volgendeMaand", volgendeMaand)
+				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
+				.addObject("volgendJaar", volgendJaar);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -30,9 +51,29 @@ class KalenderController {
 		int kalender[][] = createKalender(huidigetijd.get(Calendar.YEAR),
 				huidigetijd.get(Calendar.MONTH) + 1);
 		int maxRij = kalender[rij][0] == 0 ? rij - 1 : rij;
-		return new ModelAndView(VIEW, "kalender", kalender).addObject("maxRij",
-				maxRij).addObject("maand",
-				welkeMaand(huidigetijd.get(Calendar.MONTH) + 1));
+		int vorigeMaand = huidigetijd.get(Calendar.MONTH);
+		int vorigJaar = huidigetijd.get(Calendar.YEAR);
+		int volgendeMaand = huidigetijd.get(Calendar.MONTH) + 2;
+		int volgendJaar = huidigetijd.get(Calendar.YEAR);
+
+		if (vorigeMaand == 0) {
+			vorigeMaand = 12;
+			vorigJaar--;
+		}
+		if (volgendeMaand == 13) {
+			volgendeMaand = 1;
+			volgendJaar++;
+		}
+		return new ModelAndView(VIEW, "kalender", kalender)
+				.addObject("maxRij", maxRij)
+				.addObject("maand",
+						welkeMaand(huidigetijd.get(Calendar.MONTH) + 1))
+				.addObject("vorigeMaand", vorigeMaand)
+				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
+				.addObject("vorigJaar", vorigJaar)
+				.addObject("volgendeMaand", volgendeMaand)
+				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
+				.addObject("volgendJaar", volgendJaar);
 	}
 
 	private int bepaalEersteDagVanMaandInEersteWeek(Calendar calendar) {
@@ -111,4 +152,5 @@ class KalenderController {
 
 		}
 	}
+
 }

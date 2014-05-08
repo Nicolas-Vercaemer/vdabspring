@@ -46,6 +46,10 @@ thead tr,tfoot tr {
 	background-color: gray;
 }
 
+table#zonderOpmaak td{
+	background-color: #F7FFCC;
+}
+
 td {
 	padding-left: 0.2em;
 	padding-right: 0.2em;

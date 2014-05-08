@@ -5,7 +5,6 @@
 <%@taglib prefix='v' uri='http://vdab.be/tags' %>
 <!doctype html>
 <html>
-<head>
 <head><v:head title='Welkom'/></head>
 </head>
 <body>
