@@ -38,6 +38,5 @@
 	<c:forEach items="${dagGegevens.dagDetails}" var="dag">
 		${dag.cursist.voornaam} ${dag.onderwerp.naam}<br>
 	</c:forEach>
-	<!--<form:select path="" ></form:select>-->		
 	</body>
 </html>
