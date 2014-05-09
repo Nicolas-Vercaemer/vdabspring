@@ -21,9 +21,41 @@ public class DagController {
 			@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datum) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(datum);
-		return new ModelAndView(VIEW, "dagVanDeWeek",
-				dagVanDeWeek(calendar.get(Calendar.DAY_OF_WEEK))).addObject(
-				"datum", datum);
+		return new ModelAndView(VIEW, "huidigeDag",
+				dagVanDeWeek(calendar.get(Calendar.DAY_OF_WEEK)))
+				.addObject("huidigeDatum", datum)
+				.addObject(
+						"vorigeDag",
+						dagVanDeWeek(vorigeDagBerekenen(datum).get(
+								Calendar.DAY_OF_WEEK)))
+				.addObject("vorigeDagDatum", vorigeDagBerekenen(datum))
+				.addObject(
+						"volgendeDag",
+						dagVanDeWeek(volgendeDagBerekenen(datum).get(
+								Calendar.DAY_OF_WEEK)))
+				.addObject("volgendeDagDatum", volgendeDagBerekenen(datum));
+	}
+
+	private Calendar vorigeDagBerekenen(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+			calendar.add(Calendar.DAY_OF_WEEK, -3);
+		} else {
+			calendar.add(Calendar.DAY_OF_WEEK, -1);
+		}
+		return calendar;
+	}
+
+	private Calendar volgendeDagBerekenen(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+			calendar.add(Calendar.DAY_OF_WEEK, +3);
+		} else {
+			calendar.add(Calendar.DAY_OF_WEEK, +1);
+		}
+		return calendar;
 	}
 
 	private String dagVanDeWeek(int dagInt) {

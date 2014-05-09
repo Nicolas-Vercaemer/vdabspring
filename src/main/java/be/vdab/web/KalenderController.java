@@ -35,26 +35,16 @@ class KalenderController {
 		Calendar calendar = Calendar.getInstance();
 		int kalender[][] = createKalender(jaar, maand);
 		int maxRij = kalender[rij][0] == 0 ? rij - 1 : rij;
-		int vorigeMaand = maand - 1;
-		int volgendeMaand = maand + 1;
-		int vorigJaar = jaar;
-		int volgendJaar = jaar;
-
-		if (vorigeMaand == 0) {
-			vorigeMaand = 12;
-			vorigJaar--;
-		}
-		if (volgendeMaand == 13) {
-			volgendeMaand = 1;
-			volgendJaar++;
-		}
 
 		return new ModelAndView(VIEW, "kalender", kalender)
 				.addObject("maxRij", maxRij)
 				.addObject("maandString", welkeMaand(maand))
-				.addObject("jaar", jaar).addObject("maand", maand)
-				.addObject("vorigeMaandString", welkeMaand(vorigeMaand))
-				.addObject("volgendeMaandString", welkeMaand(volgendeMaand))
+				.addObject("jaar", jaar)
+				.addObject("maand", maand)
+				.addObject("vorigeMaandString",
+						welkeMaand(maand == 1 ? 12 : maand - 1))
+				.addObject("volgendeMaandString",
+						welkeMaand(maand == 12 ? 1 : maand + 1))
 				.addObject("huidigeDag", calendar.get(Calendar.DAY_OF_MONTH))
 				.addObject("huidigeMaand", calendar.get(Calendar.MONTH) + 1)
 				.addObject("huidigJaar", calendar.get(Calendar.YEAR));

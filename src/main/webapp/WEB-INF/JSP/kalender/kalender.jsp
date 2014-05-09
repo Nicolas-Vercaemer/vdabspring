@@ -23,42 +23,22 @@ td {
 </head>
 <body>
 	<v:menu />
-	
-	<c:choose>
-	<c:when test="${maand == 1}">
-	<c:set var="vorigeMaand" value="12"/>
-	<c:set var ="vorigJaar" value="${jaar - 1}"/>
-	<c:set var="volgendeMaand" value="${maand + 1 }"/>
-	<c:set var ="volgendJaar" value="${jaar}"/>
-	</c:when>
-	<c:when test="${maand == 12}">
-	<c:set var="vorigeMaand" value="${maand - 1}"/>
-	<c:set var ="vorigJaar" value="${jaar}"/>
-	<c:set var="volgendeMaand" value="1"/>
-	<c:set var ="volgendJaar" value="${jaar + 1}"/>
-	</c:when>
-	<c:otherwise>
-	<c:set var="vorigeMaand" value="${maand - 1}"/>
-	<c:set var ="vorigJaar" value="${jaar}"/>
-	<c:set var="volgendeMaand" value="${maand + 1}"/>
-	<c:set var ="volgendJaar" value="${jaar}"/>
-	</c:otherwise>
-	</c:choose>
-	
-		
+
 	<spring:url var='urlVorigeMaand' value='/kalender/{jaar}/{maand}'>
-		<spring:param name="jaar" value="${vorigJaar}"></spring:param>
-		<spring:param name="maand" value="${vorigeMaand}"></spring:param>
+		<spring:param name="jaar" value="${maand == 1 ? jaar - 1 : jaar}"></spring:param>
+		<spring:param name="maand" value="${maand == 1 ? 12 : maand -1}"></spring:param>
 	</spring:url>
 	<spring:url var='urlVolgendeMaand' value='/kalender/{jaar}/{maand}'>
-		<spring:param name="jaar" value="${volgendJaar}"></spring:param>
-		<spring:param name="maand" value="${volgendeMaand}"></spring:param>
+		<spring:param name="jaar" value="${maand == 12 ? jaar + 1 : jaar}"></spring:param>
+		<spring:param name="maand" value="${maand == 12 ? 1 : maand + 1}"></spring:param>
 	</spring:url>
 
-	<h1>
-		<a href="${urlVorigeMaand}">${vorigeMaandString}</a> - ${maandString}
-		- <a href="${urlVolgendeMaand}">${volgendeMaandString}</a>
-	</h1>
+
+	<a href="${urlVorigeMaand}"><span class="vorigeVolgendeDagMaand">${vorigeMaandString}</span></a>
+	-
+	<span class="huidigeDagMaand">${maandString}</span> -
+	<a href="${urlVolgendeMaand}"><span class="vorigeVolgendeDagMaand">${volgendeMaandString}</span></a>
+
 
 	<table>
 		<tr>
