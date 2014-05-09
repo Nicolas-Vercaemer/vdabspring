@@ -32,5 +32,12 @@
 			<fmt:formatDate value="${volgendeDagDatum.time}" type="date"
 				dateStyle="short" />
 	</span></a>
-</body>
+	<br>
+	<br>
+	
+	<c:forEach items="${dagGegevens.dagDetails}" var="dag">
+		${dag.cursist.voornaam} ${dag.onderwerp.naam}<br>
+	</c:forEach>
+	<!--<form:select path="" ></form:select>-->		
+	</body>
 </html>

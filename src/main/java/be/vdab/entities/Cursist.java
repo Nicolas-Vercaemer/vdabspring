@@ -159,8 +159,4 @@ public class Cursist {
 		return eindDatum.after(beginDatum);
 	}
 
-		
-		
-	}
-
-
+}

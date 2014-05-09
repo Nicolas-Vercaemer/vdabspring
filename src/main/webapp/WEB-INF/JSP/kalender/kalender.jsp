@@ -35,8 +35,7 @@ td {
 
 
 	<a href="${urlVorigeMaand}"><span class="vorigeVolgendeDagMaand">${vorigeMaandString}</span></a>
-	-
-	<span class="huidigeDagMaand">${maandString}</span> -
+		<span class="huidigeDagMaand"> - ${maandString} - </span>
 	<a href="${urlVolgendeMaand}"><span class="vorigeVolgendeDagMaand">${volgendeMaandString}</span></a>
 
 

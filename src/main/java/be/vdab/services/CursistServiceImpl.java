@@ -25,13 +25,17 @@ class CursistServiceImpl implements CursistService {
 
 	@Override
 	public boolean isEmaiInGebruik(Cursist cursist) {
-	return	cursistDAO.findByEmail(cursist.getEmail()) != null;
-
-
-
-		
-		}
-
+		return cursistDAO.findByEmail(cursist.getEmail()) != null;
 	}
 
+	@Override
+	public Iterable<Cursist> findAll() {
+		return cursistDAO.findAll();
+	}
 
+	@Override
+	public Cursist read(long id) {
+		return cursistDAO.findOne(id);
+	}
+
+}

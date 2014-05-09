@@ -4,6 +4,7 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import be.vdab.services.DagService;
+
 @Controller
 @RequestMapping("/dagen")
 public class DagController {
 	private static final String VIEW = "dagen/dag";
+	private final DagService dagService;
+
+	@Autowired
+	public DagController(DagService dagService) {
+		this.dagService = dagService;
+	}
 
 	@RequestMapping(value = "{datum}", method = RequestMethod.GET)
 	ModelAndView kalender(
@@ -33,7 +42,8 @@ public class DagController {
 						"volgendeDag",
 						dagVanDeWeek(volgendeDagBerekenen(datum).get(
 								Calendar.DAY_OF_WEEK)))
-				.addObject("volgendeDagDatum", volgendeDagBerekenen(datum));
+				.addObject("volgendeDagDatum", volgendeDagBerekenen(datum))
+				.addObject("dagGegevens", dagService.findByDatum(datum));
 	}
 
 	private Calendar vorigeDagBerekenen(Date date) {

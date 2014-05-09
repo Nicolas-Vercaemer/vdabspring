@@ -6,5 +6,4 @@ import be.vdab.entities.Cursist;
 
 public interface CursistDAO extends JpaRepository<Cursist, Long> {
 	Cursist findByEmail(String email);
-
 }
