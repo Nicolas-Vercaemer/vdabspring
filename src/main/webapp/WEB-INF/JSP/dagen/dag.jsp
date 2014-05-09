@@ -34,9 +34,17 @@
 	</span></a>
 	<br>
 	<br>
-	
-	<c:forEach items="${dagGegevens.dagDetails}" var="dag">
-		${dag.cursist.voornaam} ${dag.onderwerp.naam}<br>
-	</c:forEach>
-	</body>
+	<table>
+		<tr>
+			<th>Naam</th>
+			<th>Onderwerp</th>
+		</tr>
+		<c:forEach items="${dagGegevens.dagDetails}" var="dag">
+			<tr>
+				<td>${dag.cursist.voornaam}</td>
+				<td>${dag.onderwerp.naam}</td>
+			</tr>
+		</c:forEach>
+		</table>
+		</body>
 </html>

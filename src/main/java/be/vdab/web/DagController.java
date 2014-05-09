@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import be.vdab.services.DagService;
+import be.vdab.services.OnderwerpService;
 
 @Controller
 @RequestMapping("/dagen")
 public class DagController {
 	private static final String VIEW = "dagen/dag";
 	private final DagService dagService;
+	private final OnderwerpService onderwerpService;
 
 	@Autowired
-	public DagController(DagService dagService) {
+	public DagController(DagService dagService,
+			OnderwerpService onderwerpService) {
 		this.dagService = dagService;
+		this.onderwerpService = onderwerpService;
 	}
 
 	@RequestMapping(value = "{datum}", method = RequestMethod.GET)
@@ -43,7 +47,8 @@ public class DagController {
 						dagVanDeWeek(volgendeDagBerekenen(datum).get(
 								Calendar.DAY_OF_WEEK)))
 				.addObject("volgendeDagDatum", volgendeDagBerekenen(datum))
-				.addObject("dagGegevens", dagService.findByDatum(datum));
+				.addObject("dagGegevens", dagService.findByDatum(datum))
+				.addObject("onderwerpen", onderwerpService.findAll());
 	}
 
 	private Calendar vorigeDagBerekenen(Date date) {
