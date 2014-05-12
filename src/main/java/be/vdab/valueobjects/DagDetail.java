@@ -13,9 +13,6 @@ import be.vdab.entities.Onderwerp;
 public class DagDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// private long id;
-	// private long dagID;
-
 	@ManyToOne
 	@JoinColumn(name = "cursistID")
 	private Cursist cursist;
@@ -24,11 +21,14 @@ public class DagDetail implements Serializable {
 	@JoinColumn(name = "onderwerpID")
 	private Onderwerp onderwerp;
 
-	/*
-	 * public long getId() { return id; }
-	 * 
-	 * public long getDagID() { return dagID; }
-	 */
+	DagDetail() {
+	}
+
+	public DagDetail(Cursist cursist, Onderwerp onderwerp) {
+		this.cursist = cursist;
+		this.onderwerp = onderwerp;
+	}
+
 	public Cursist getCursist() {
 		return cursist;
 	}
@@ -37,4 +37,17 @@ public class DagDetail implements Serializable {
 		return onderwerp;
 	}
 
+	public void setCursist(Cursist cursist) {
+		this.cursist = cursist;
+	}
+
+	public void setOnderwerp(Onderwerp onderwerp) {
+		this.onderwerp = onderwerp;
+	}
+
+	@Override
+	public String toString() {
+		return "DagDetail [cursist=" + cursist + ", onderwerp=" + onderwerp
+				+ "]";
+	}
 }

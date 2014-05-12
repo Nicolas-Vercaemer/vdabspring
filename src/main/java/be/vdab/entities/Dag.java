@@ -32,6 +32,11 @@ public class Dag {
 	Dag() {
 	}
 
+	public Dag(Date datum, Set<DagDetail> dagDetails) {
+		this.datum = datum;
+		this.dagDetails = dagDetails;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -42,5 +47,15 @@ public class Dag {
 
 	public Set<DagDetail> getDagDetails() {
 		return dagDetails;
+	}
+
+	public void setDagDetails(Set<DagDetail> dagDetails) {
+		this.dagDetails = dagDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "Dag [id=" + id + ", datum=" + datum + ", dagDetails="
+				+ dagDetails + "]";
 	}
 }

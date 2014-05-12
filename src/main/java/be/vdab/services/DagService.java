@@ -6,4 +6,7 @@ import be.vdab.entities.Dag;
 
 public interface DagService {
 	Dag findByDatum(Date datum);
+
+	Dag save(Dag dag);
+
 }

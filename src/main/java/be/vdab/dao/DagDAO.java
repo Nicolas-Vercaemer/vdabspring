@@ -8,4 +8,5 @@ import be.vdab.entities.Dag;
 
 public interface DagDAO extends JpaRepository<Dag, Long> {
 	Dag findByDatum(Date datum);
+
 }

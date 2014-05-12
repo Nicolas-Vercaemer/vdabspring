@@ -23,4 +23,10 @@ public class DagServiceImpl implements DagService {
 	public Dag findByDatum(Date datum) {
 		return dagDAO.findByDatum(datum);
 	}
+
+	@Override
+	public Dag save(Dag dag) {
+		return dagDAO.save(dag);
+	}
+
 }

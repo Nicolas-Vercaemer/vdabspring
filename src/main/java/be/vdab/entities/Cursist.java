@@ -70,26 +70,19 @@ public class Cursist {
 		this.email = email;
 	}
 
-	public Cursist(long id, String voornaam, String familienaam,
-			Date geboorteDatum, Date beginDatum, Date eindDatum, String email) {
-		this.id = id;
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.geboorteDatum = geboorteDatum;
-		this.beginDatum = beginDatum;
-		this.eindDatum = eindDatum;
-		this.email = email;
-	}
-
-	public Cursist(long id, String voornaam, String familienaam,
-			Date geboorteDatum, Date beginDatum, String email) {
-		this.id = id;
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.geboorteDatum = geboorteDatum;
-		this.beginDatum = beginDatum;
-		this.email = email;
-	}
+	/*
+	 * public Cursist(long id, String voornaam, String familienaam, Date
+	 * geboorteDatum, Date beginDatum, Date eindDatum, String email) { this.id =
+	 * id; this.voornaam = voornaam; this.familienaam = familienaam;
+	 * this.geboorteDatum = geboorteDatum; this.beginDatum = beginDatum;
+	 * this.eindDatum = eindDatum; this.email = email; }
+	 * 
+	 * public Cursist(long id, String voornaam, String familienaam, Date
+	 * geboorteDatum, Date beginDatum, String email) { this.id = id;
+	 * this.voornaam = voornaam; this.familienaam = familienaam;
+	 * this.geboorteDatum = geboorteDatum; this.beginDatum = beginDatum;
+	 * this.email = email; }
+	 */
 
 	public Cursist() {
 
@@ -105,6 +98,10 @@ public class Cursist {
 
 	public String getFamilienaam() {
 		return familienaam;
+	}
+
+	public String getFullname() {
+		return voornaam + " " + familienaam;
 	}
 
 	public Date getGeboorteDatum() {

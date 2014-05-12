@@ -11,7 +11,6 @@
 </head>
 <body>
 	<v:menu></v:menu>
-
 	<fmt:formatDate value="${vorigeDagDatum.time}" pattern="yyyy-MM-dd"
 		var="vorigeDagFormat" />
 	<spring:url var='vorigeDagURL' value='/dagen/${vorigeDagFormat}'>
@@ -34,17 +33,47 @@
 	</span></a>
 	<br>
 	<br>
+	
+	<fmt:formatDate value="${huidigeDatum}" pattern="yyyy-MM-dd"
+		var="huidigeDagFormat" />
+	<c:url value='/dagen/${huidigeDagFormat}' var='url' />
+	
+	
+	<spring:url value='/dagen/${huidigeDagFormat}' var='verwijderURL'/>
+	<form method="post" action="${verwijderURL}" name="verwijderen">
 	<table>
 		<tr>
 			<th>Naam</th>
 			<th>Onderwerp</th>
+			<th></th>
 		</tr>
 		<c:forEach items="${dagGegevens.dagDetails}" var="dag">
 			<tr>
 				<td>${dag.cursist.voornaam}</td>
 				<td>${dag.onderwerp.naam}</td>
+				<td><input type="submit" value="${dag}" name="verwijderen" class="verwijderen"/></td>
 			</tr>
 		</c:forEach>
-		</table>
-		</body>
+	</table>
+	</form>
+	
+	<c:if test="${empty dagDetail}">
+		<br>
+		<form action="${url}" method="post">
+			<input type="submit" value="toevoegen" name="toevoegForm">
+		</form>
+	</c:if>
+	<c:if test="${not empty dagDetail}">
+		<form:form action="${url}" commandName="dagDetail" method="post">
+			<form:select path="cursist">
+				<form:options items="${cursisten}" itemValue="id"
+					itemLabel="fullname" />
+			</form:select>
+			<form:select path="onderwerp">
+				<form:options items="${onderwerpen}" itemValue="id" itemLabel="naam" />
+			</form:select>
+			<input type='submit' value='opslaan'>
+		</form:form>
+	</c:if>
+</body>
 </html>
