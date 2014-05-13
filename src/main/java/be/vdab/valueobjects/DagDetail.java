@@ -2,6 +2,7 @@ package be.vdab.valueobjects;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,8 +11,19 @@ import be.vdab.entities.Cursist;
 import be.vdab.entities.Onderwerp;
 
 @Embeddable
-public class DagDetail implements Serializable {
+public class DagDetail implements Serializable, Comparable<DagDetail> {
 	private static final long serialVersionUID = 1L;
+
+	@Column(insertable = false, updatable = false)
+	private long id;
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public long getId() {
+		return id;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "cursistID")
@@ -47,7 +59,20 @@ public class DagDetail implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DagDetail [cursist=" + cursist + ", onderwerp=" + onderwerp
-				+ "]";
+		return "DagDetail [cursist=" + cursist.getVoornaam() + ", onderwerp="
+				+ onderwerp.getNaam() + "]";
 	}
+
+	@Override
+	public int compareTo(DagDetail dagDetail) {
+		int rest = this.getCursist().getVoornaam()
+				.compareToIgnoreCase(dagDetail.cursist.getVoornaam());
+		if (rest != 0) {
+			return rest;
+		}
+
+		return this.getOnderwerp().getNaam()
+				.compareToIgnoreCase(dagDetail.onderwerp.getNaam());
+	}
+
 }

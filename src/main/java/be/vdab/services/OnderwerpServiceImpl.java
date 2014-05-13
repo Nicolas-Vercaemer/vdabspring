@@ -21,7 +21,6 @@ class OnderwerpServiceImpl implements OnderwerpService {
 
 	@Override
 	public void createOrUpdate(Onderwerp onderwerp) {
-		// onderwerpDAO.save(onderwerp);
 		onderwerp.setId(onderwerpDAO.save(onderwerp).getId());
 	}
 

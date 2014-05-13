@@ -2,6 +2,7 @@ package be.vdab.entities;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.SortNatural;
 
 import be.vdab.valueobjects.DagDetail;
 
@@ -27,12 +30,13 @@ public class Dag {
 
 	@ElementCollection
 	@CollectionTable(name = "dagdetails", joinColumns = @JoinColumn(name = "dagid"))
-	private Set<DagDetail> dagDetails;
+	@SortNatural
+	private SortedSet<DagDetail> dagDetails;
 
 	Dag() {
 	}
 
-	public Dag(Date datum, Set<DagDetail> dagDetails) {
+	public Dag(Date datum, SortedSet<DagDetail> dagDetails) {
 		this.datum = datum;
 		this.dagDetails = dagDetails;
 	}
@@ -49,7 +53,7 @@ public class Dag {
 		return dagDetails;
 	}
 
-	public void setDagDetails(Set<DagDetail> dagDetails) {
+	public void setDagDetails(SortedSet<DagDetail> dagDetails) {
 		this.dagDetails = dagDetails;
 	}
 

@@ -1,6 +1,8 @@
 package be.vdab.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +32,7 @@ class CursistServiceImpl implements CursistService {
 
 	@Override
 	public Iterable<Cursist> findAll() {
-		return cursistDAO.findAll();
+		return cursistDAO.findAll(new Sort(Direction.ASC, "voornaam"));
 	}
 
 	@Override
