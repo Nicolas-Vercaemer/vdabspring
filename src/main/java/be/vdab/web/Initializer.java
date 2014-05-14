@@ -6,12 +6,12 @@ import javax.servlet.ServletException;
 
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import be.vdab.dao.CreateDAOBeans;
 import be.vdab.datasource.CreateDataSourceBean;
 import be.vdab.services.CreateServiceBeans;
-
 
 // enkele imports
 public class Initializer extends
@@ -23,8 +23,9 @@ public class Initializer extends
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {CreateDataSourceBean.class, CreateDAOBeans.class,
-				CreateServiceBeans.class };	}
+		return new Class<?>[] { CreateDataSourceBean.class,
+				CreateDAOBeans.class, CreateServiceBeans.class };
+	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
@@ -41,7 +42,8 @@ public class Initializer extends
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter utf8Filter = new CharacterEncodingFilter();
 		utf8Filter.setEncoding("UTF-8");
-		return new Filter[] {utf8Filter, new OpenEntityManagerInViewFilter()};
+		return new Filter[] { utf8Filter, new OpenEntityManagerInViewFilter(),
+				new HiddenHttpMethodFilter() };
 	}
-	
+
 }

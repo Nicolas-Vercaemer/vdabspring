@@ -66,7 +66,6 @@ public class DagController {
 	String toevoegen(
 			@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datum,
 			DagDetail dagDetail, BindingResult bindingResult) {
-
 		Dag dag = dagService.findByDatum(datum);
 
 		if (dag == null) {
@@ -80,11 +79,10 @@ public class DagController {
 				+ new SimpleDateFormat("yyyy-MM-dd").format(datum);
 	}
 
-	@RequestMapping(value = "{datum}", method = RequestMethod.POST, params = "verwijderen")
+	@RequestMapping(value = "{datum}", method = RequestMethod.DELETE)
 	String verwijderen(
 			@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datum,
 			@RequestParam("verwijderen") Long id) {
-
 		Dag dag = dagService.findByDatum(datum);
 
 		for (Iterator<DagDetail> it = dag.getDagDetails().iterator(); it

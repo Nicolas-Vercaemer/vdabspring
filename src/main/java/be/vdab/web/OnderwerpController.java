@@ -25,12 +25,14 @@ public class OnderwerpController {
 		this.onderwerpService = onderwerpService;
 	}
 
+	// INDEX (FINDALL)
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	ModelAndView findAll() {
 		return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll());
 	}
 
-	@RequestMapping(value = "verwijderen", method = RequestMethod.POST)
+	// VERWIJDEREN
+	@RequestMapping(value = "", method = RequestMethod.DELETE)
 	ModelAndView delete(Onderwerp onderwerp) {
 		try {
 			onderwerpService.delete(onderwerp);
@@ -41,14 +43,22 @@ public class OnderwerpController {
 		return new ModelAndView("redirect:/onderwerpen");
 	}
 
+	// BEWERKFORMULIER
 	@RequestMapping(value = "bewerken/{onderwerp}", method = RequestMethod.GET)
 	ModelAndView bewerken(@PathVariable Onderwerp onderwerp) {
-		return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll())
-				.addObject("onderwerp", onderwerp);
+		return findAll().addObject("onderwerp", onderwerp);
 	}
 
-	@RequestMapping(value = "opslaan", method = RequestMethod.POST)
-	public ModelAndView opslaan(@Valid Onderwerp onderwerp,
+	// TOEVOEGEN
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public ModelAndView toevoegen(@Valid Onderwerp onderwerp,
+			BindingResult bindingResult) {
+		return bewerken(onderwerp);
+	}
+
+	// BEWERKEN
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public ModelAndView bewerken(@Valid Onderwerp onderwerp,
 			BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {
 			if (onderwerpService.isNaamAlInGebruik(onderwerp)) {
@@ -57,17 +67,16 @@ public class OnderwerpController {
 		}
 
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView(VIEW, "onderwerpen",
-					onderwerpService.findAll());
+			return findAll();
 		}
 		onderwerpService.createOrUpdate(onderwerp);
 		return new ModelAndView("redirect:/onderwerpen");
 	}
 
+	// TOEVOEGFORMULIER
 	@RequestMapping(value = "toevoegen", method = RequestMethod.GET)
 	ModelAndView toevoegen() {
-		return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll())
-				.addObject("onderwerp", new Onderwerp());
+		return findAll().addObject("onderwerp", new Onderwerp());
 	}
 
 }

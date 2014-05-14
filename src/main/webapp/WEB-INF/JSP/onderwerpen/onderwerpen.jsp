@@ -11,7 +11,7 @@
 <body>
 	<v:menu />
 	<h1>Onderwerpen</h1>
-	<spring:url value='/onderwerpen/verwijderen' var='verwijderURL' />
+	<spring:url value='/onderwerpen' var='verwijderURL' />
 	<c:choose>
 		<c:when
 			test="${onderwerp.id==0 or empty onderwerp or not empty foutverwijderen}">
@@ -26,7 +26,7 @@
 				</thead>
 
 				<tbody>
-					<form method="post" action="${verwijderURL}">
+					<form:form method="delete" action="${verwijderURL}">
 						<c:forEach items="${onderwerpen}" var="onderwerpUitLijst">
 							<tr>
 								<td>${onderwerpUitLijst.naam}</td>
@@ -41,10 +41,10 @@ Ja
 										alt="edit" src="${contextPath}/images/icons/pencil.png"></a></td>
 							</tr>
 						</c:forEach>
-					</form>
+					</form:form>
 					<c:if test="${not empty onderwerp and onderwerp.id==0}">
-						<spring:url value="/onderwerpen/opslaan" var="opslaanURL" />
-						<form:form method="post" action="${opslaanURL}" id="bewerkenform"
+						<spring:url value="/onderwerpen" var="opslaanURL" />
+						<form:form method="put" action="${opslaanURL}" id="bewerkenform"
 							commandName="onderwerp">
 							<jsp:include page='onderwerpform.jsp' />
 						</form:form>
@@ -80,8 +80,8 @@ Ja
 						<c:choose>
 							<c:when
 								test="${onderwerpUitLijst.id == onderwerp.id and empty foutverwijderen}">
-								<spring:url value="/onderwerpen/opslaan" var="opslaanURL" />
-								<form:form method="post" action="${opslaanURL}"
+								<spring:url value="/onderwerpen" var="opslaanURL" />
+								<form:form method="put" action="${opslaanURL}"
 									id="bewerkenform" commandName="onderwerp">
 									<jsp:include page='onderwerpform.jsp' />
 

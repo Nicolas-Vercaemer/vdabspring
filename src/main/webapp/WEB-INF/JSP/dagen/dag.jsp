@@ -41,8 +41,7 @@
 
 
 	<spring:url value='/dagen/${huidigeDagFormat}' var='verwijderURL' />
-	<form:form method="post" action="${verwijderURL}" name="verwijderen"
-		commandName="dagDetail">
+	<form:form method="delete" action="${verwijderURL}" commandName="dagDetail">
 		<c:if test="${not empty dagGegevens.dagDetails}">
 			<table>
 				<tr>
