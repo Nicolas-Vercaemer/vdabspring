@@ -78,5 +78,6 @@
 			<input type='submit' value='opslaan'>
 		</form:form>
 	</c:if>
+	<h1>${fout}</h1>
 </body>
 </html>

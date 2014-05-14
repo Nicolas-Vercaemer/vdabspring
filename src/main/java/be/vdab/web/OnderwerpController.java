@@ -3,6 +3,7 @@ package be.vdab.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +27,17 @@ public class OnderwerpController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	ModelAndView findAll() {
-
 		return new ModelAndView(VIEW, "onderwerpen", onderwerpService.findAll());
 	}
 
 	@RequestMapping(value = "verwijderen", method = RequestMethod.POST)
 	ModelAndView delete(Onderwerp onderwerp) {
-		onderwerpService.delete(onderwerp);
+		try {
+			onderwerpService.delete(onderwerp);
+		} catch (DataIntegrityViolationException ex) {
+			return findAll().addObject("foutverwijderen",
+					"Kan onderwerp niet verwijderen het is in gebruik.");
+		}
 		return new ModelAndView("redirect:/onderwerpen");
 	}
 
