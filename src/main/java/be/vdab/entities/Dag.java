@@ -13,15 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.SortNatural;
 
 import be.vdab.valueobjects.DagDetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@XmlRootElement
 @Entity
 @Table(name = "dagen")
 public class Dag {
-
 	@Id
 	@GeneratedValue
 	private long id;
@@ -31,9 +35,11 @@ public class Dag {
 	@ElementCollection
 	@CollectionTable(name = "dagdetails", joinColumns = @JoinColumn(name = "dagid"))
 	@SortNatural
+	@XmlTransient
+	@JsonIgnore
 	private SortedSet<DagDetail> dagDetails;
 
-	Dag() {
+	public Dag() {
 	}
 
 	public Dag(Date datum, SortedSet<DagDetail> dagDetails) {

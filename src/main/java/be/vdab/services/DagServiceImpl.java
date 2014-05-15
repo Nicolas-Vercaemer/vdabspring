@@ -29,4 +29,9 @@ public class DagServiceImpl implements DagService {
 		return dagDAO.save(dag);
 	}
 
+	@Override
+	public Iterable<Dag> findall() {
+		return dagDAO.findAll();
+	}
+
 }

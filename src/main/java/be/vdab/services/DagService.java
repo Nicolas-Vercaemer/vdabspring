@@ -9,4 +9,6 @@ public interface DagService {
 
 	Dag save(Dag dag);
 
+	Iterable<Dag> findall();
+
 }

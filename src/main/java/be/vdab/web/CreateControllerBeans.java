@@ -1,7 +1,5 @@
 package be.vdab.web;
 
-
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,46 +31,53 @@ public class CreateControllerBeans extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/JSP/");
 		resolver.setSuffix(".jsp");
 		return resolver;
-		
+
 	}
+
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) { 
-	registry.addResourceHandler("/images/**")
-	.addResourceLocations("/images/"); 
-	registry.addResourceHandler("/styles/**").addResourceLocations("/styles/");
-	registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/images/**").addResourceLocations(
+				"/images/");
+		registry.addResourceHandler("/styles/**").addResourceLocations(
+				"/styles/");
+		registry.addResourceHandler("/scripts/**").addResourceLocations(
+				"/scripts/");
 	}
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-	registry.addViewController("/info").setViewName("info"); 
+		registry.addViewController("/info").setViewName("info");
 	}
+
 	@Bean
-	MessageSource messageSource(){
-		ReloadableResourceBundleMessageSource messageSource = 
-				new ReloadableResourceBundleMessageSource();
+	MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("classpath:/teksten");
 		messageSource.setFallbackToSystemLocale(false);
 		return messageSource;
 	}
+
 	@Bean
-	LocaleResolver localeResolver(){
+	LocaleResolver localeResolver() {
 		CookieLocaleResolver resolver = new CookieLocaleResolver();
 		resolver.setCookieMaxAge(604800); // 604800=7 dagen
 		return resolver;
 	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	registry.addInterceptor(new LocaleChangeInterceptor());
+		registry.addInterceptor(new LocaleChangeInterceptor());
 	}
+
 	@Bean
-	LocalValidatorFactoryBean validatorFactory() { 
-	LocalValidatorFactoryBean validatorFactory = new LocalValidatorFactoryBean();
-	validatorFactory.setValidationMessageSource(messageSource()); 
-	return validatorFactory;
+	LocalValidatorFactoryBean validatorFactory() {
+		LocalValidatorFactoryBean validatorFactory = new LocalValidatorFactoryBean();
+		validatorFactory.setValidationMessageSource(messageSource());
+		return validatorFactory;
 	}
+
 	@Override
-	// importeer Validator uit org.springframework.validation
 	public Validator getValidator() {
-	return new SpringValidatorAdapter(validatorFactory().getValidator()); 
+		return new SpringValidatorAdapter(validatorFactory().getValidator());
 	}
 }

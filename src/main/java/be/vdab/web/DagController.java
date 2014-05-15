@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ import be.vdab.services.OnderwerpService;
 import be.vdab.valueobjects.DagDetail;
 
 @Controller
-@RequestMapping("/dagen")
+@RequestMapping(value = "/dagen", produces = MediaType.TEXT_HTML_VALUE)
 public class DagController {
 	private static final String VIEW = "dagen/dag";
 	private final DagService dagService;
