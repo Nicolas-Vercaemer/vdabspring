@@ -9,6 +9,8 @@ public interface CursistService {
 
 	void create(Cursist cursist);
 
+	void update(Cursist cursist);
+
 	boolean isEmaiInGebruik(Cursist cursist);
 
 }

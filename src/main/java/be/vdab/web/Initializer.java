@@ -9,13 +9,14 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import be.vdab.commons.CreateCommonBeans;
 import be.vdab.dao.CreateDAOBeans;
 import be.vdab.datasource.CreateDataSourceBean;
+import be.vdab.mail.CreateMailBeans;
 import be.vdab.restclients.CreateRestClientBeans;
 import be.vdab.restservices.CreateRestControllerBeans;
 import be.vdab.services.CreateServiceBeans;
 
-// enkele imports
 public class Initializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
@@ -27,7 +28,8 @@ public class Initializer extends
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class<?>[] { CreateDataSourceBean.class,
 				CreateDAOBeans.class, CreateServiceBeans.class,
-				CreateRestClientBeans.class };
+				CreateRestClientBeans.class, CreateMailBeans.class,
+				CreateCommonBeans.class };
 	}
 
 	@Override

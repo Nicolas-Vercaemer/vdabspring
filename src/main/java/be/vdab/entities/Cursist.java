@@ -51,26 +51,27 @@ public class Cursist implements Serializable {
 	@NotNull
 	@Length(min = 1, max = 45)
 	private String email;
+	@NotNull
+	private boolean actief;
+
+	/*
+	 * public Cursist(String voornaam, String familienaam, Date geboorteDatum,
+	 * Date beginDatum, Date eindDatum, String email) {
+	 * 
+	 * this.voornaam = voornaam; this.familienaam = familienaam;
+	 * this.geboorteDatum = geboorteDatum; this.beginDatum = beginDatum;
+	 * this.eindDatum = eindDatum; this.email = email; }
+	 */
 
 	public Cursist(String voornaam, String familienaam, Date geboorteDatum,
-			Date beginDatum, Date eindDatum, String email) {
+			Date beginDatum, String email, boolean actief) {
 
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.geboorteDatum = geboorteDatum;
 		this.beginDatum = beginDatum;
-		this.eindDatum = eindDatum;
 		this.email = email;
-	}
-
-	public Cursist(String voornaam, String familienaam, Date geboorteDatum,
-			Date beginDatum, String email) {
-
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.geboorteDatum = geboorteDatum;
-		this.beginDatum = beginDatum;
-		this.email = email;
+		this.actief = actief;
 	}
 
 	/*
@@ -123,6 +124,10 @@ public class Cursist implements Serializable {
 		return email;
 	}
 
+	public boolean isActief() {
+		return actief;
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -149,6 +154,10 @@ public class Cursist implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setActief(boolean actief) {
+		this.actief = actief;
 	}
 
 	@AssertTrue

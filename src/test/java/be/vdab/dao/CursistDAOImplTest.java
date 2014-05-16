@@ -27,7 +27,7 @@ public class CursistDAOImplTest {
 	@Test
 	public void create() {
 		Cursist cursist = new Cursist("TestVoornaam", "TestAchternaam",
-				new Date(), new Date(), new Date(), "testemail@email.com");
+				new Date(), new Date(), "testemail@email.com", false);
 		cursistDAO.save(cursist);
 		Assert.assertNotEquals(0, cursist.getId()); // id moet autonumber
 													// hebben:
