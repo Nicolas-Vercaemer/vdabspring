@@ -30,7 +30,7 @@ public class DagServiceImpl implements DagService {
 	}
 
 	@Override
-	public Iterable<Dag> findall() {
+	public Iterable<Dag> findAll() {
 		return dagDAO.findAll();
 	}
 

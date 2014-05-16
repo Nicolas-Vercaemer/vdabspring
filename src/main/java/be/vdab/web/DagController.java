@@ -43,9 +43,17 @@ public class DagController {
 	ModelAndView kalender(
 			@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datum,
 			DagDetail dagDetail) {
+
+		Iterable<Dag> test = dagService.findAll();
+		for (Dag dag : dagService.findAll()) {
+			System.out.println(dag.getDatum());
+			for (DagDetail dagDetail2 : dag.getDagDetails()) {
+				System.out.println(dagDetail2.toString());
+			}
+		}
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(datum);
-
 		return new ModelAndView(VIEW, "huidigeDatum", datum)
 				.addObject("vorigeDagDatum", vorigeDagBerekenen(datum))
 				.addObject("volgendeDagDatum", volgendeDagBerekenen(datum))

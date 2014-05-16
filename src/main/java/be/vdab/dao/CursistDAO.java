@@ -9,4 +9,5 @@ public interface CursistDAO extends JpaRepository<Cursist, Long> {
 	Cursist findByEmail(String email);
 
 	Iterable<Cursist> findAllByActief(boolean actief, Sort sort);
+
 }

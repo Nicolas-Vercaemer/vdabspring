@@ -49,4 +49,5 @@ public class MailSenderImpl implements MailSender {
 					ex);
 		}
 	}
+
 }

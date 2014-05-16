@@ -19,6 +19,7 @@ class IndexController {
 		this.temperatuurService = temperatuurService;
 	}
 
+	// Index pagina
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView index() {
 		return new ModelAndView(VIEW).addObject("temperatuurGegevens",

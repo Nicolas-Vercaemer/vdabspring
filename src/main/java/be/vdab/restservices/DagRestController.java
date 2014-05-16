@@ -51,7 +51,7 @@ class DagRestController {
 	// Lijst met dagen
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	DagenResource findAll() {
-		return new DagenResource(dagService.findall(), entityLinks);
+		return new DagenResource(dagService.findAll(), entityLinks);
 	}
 
 	// DagGegevens niet gevonden exception
