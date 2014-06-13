@@ -1,6 +1,8 @@
 package be.vdab.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ class CursistServiceImpl implements CursistService {
 	}
 
 	@Override
+	@CacheEvict(value = "cursisten", allEntries = true)
 	public void create(Cursist cursist) {
 		cursist.setId(cursistDAO.save(cursist).getId());
 		mailSender.nieuwCursist(cursist, common.getEntityLinks()
@@ -35,6 +38,7 @@ class CursistServiceImpl implements CursistService {
 	}
 
 	@Override
+	@CacheEvict(value = "cursisten", allEntries = true)
 	public void update(Cursist cursist) {
 		cursistDAO.save(cursist);
 	}
@@ -45,6 +49,7 @@ class CursistServiceImpl implements CursistService {
 	}
 
 	@Override
+	@Cacheable("cursisten")
 	public Iterable<Cursist> findAll() {
 		return cursistDAO.findAllByActief(true, new Sort(Direction.ASC,
 				"voornaam"));
